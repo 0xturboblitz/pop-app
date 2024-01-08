@@ -1,18 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
 
 import Colors from '../../constants/Colors';
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -25,10 +17,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Scan',
+          tabBarIcon: ({ color }) => <Ionicons name="scan-sharp" size={28} style={{ marginBottom: -3 }} color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/Info" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -46,8 +38,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Prove',
+          tabBarIcon: ({ color }) => <Feather size={28} name="user-check" style={{ marginBottom: -3 }} color={color} />,
         }}
       />
     </Tabs>

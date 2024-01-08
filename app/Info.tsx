@@ -1,43 +1,45 @@
-import { StyleSheet } from 'react-native';
-import Colors from '../../constants/Colors';
-import { ExternalLink } from '../../components/ExternalLink';
-import { Text, View } from '../../components/Themed';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet } from 'react-native';
 
-export default function TabOneScreen() {
+import { Text, View } from '../components/Themed';
+import Colors from '../constants/Colors';
+import { ExternalLink } from '../components/ExternalLink';
+
+export default function InfoScreen() {
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Tab One</Text>
+      {/* <Text style={styles.title}>Info</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
       <View>
         <View style={styles.getStartedContainer}>
-          <MaterialCommunityIcons name="numeric-1-circle-outline" size={24} color="black" />
           <Text
             style={styles.getStartedText}
             lightColor="rgba(0,0,0,0.8)"
             darkColor="rgba(255,255,255,0.8)">
-            Scan the machine readable zone on the main page of your passport
+            Proof of passport uses zk-SNARKs to let you prove fasts about yourself anonymously.
           </Text>
 
-          <MaterialCommunityIcons name="numeric-2-circle-outline" size={24} color="black" />
           <Text
             style={styles.getStartedText}
             lightColor="rgba(0,0,0,0.8)"
             darkColor="rgba(255,255,255,0.8)">
-            Hold your passport against your device to read the biometric chip
+            No personal data leaves your device.
           </Text>
         </View>
 
         <View style={styles.helpContainer}>
           <ExternalLink
             style={styles.helpLink}
-            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            href="https://github.com/zk-passport/proof-of-passport">
             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-              Open camera
+              Read the code
             </Text>
           </ExternalLink>
         </View>
       </View>
+
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );
 }
