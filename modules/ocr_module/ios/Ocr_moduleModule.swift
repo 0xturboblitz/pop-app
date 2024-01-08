@@ -40,30 +40,14 @@ public class Ocr_moduleModule: Module {
       Prop("name") { (view: Ocr_moduleView, prop: String) in
         print(prop)
       }
-    }
 
-    AsyncFunction("startScanning") { (promise: Promise) in
-      DispatchQueue.main.async {
-        if let view = self.appContext?.viewRegistry?.view(forId: self.viewId, ofClass: Ocr_moduleView.self) as? Ocr_moduleView {
-          view.startScanning()
-          promise.resolve("Scanning started")
-        } else {
-          promise.reject("E_VIEW_NOT_FOUND", "Ocr_moduleView not found", nil)
-        }
+      AsyncFunction("startScanning") { (view: Ocr_moduleView) in
+        view.startScanning()
+      }
+      AsyncFunction("stopScanning") { (view: Ocr_moduleView) in
+        view.stopScanning()
       }
     }
-
-    AsyncFunction("stopScanning") { (promise: Promise) in
-      DispatchQueue.main.async {
-        if let view = self.appContext?.viewRegistry?.view(forId: self.viewId, ofClass: Ocr_moduleView.self) as? Ocr_moduleView {
-          view.stopScanning()
-          promise.resolve(nil) // Resolve the promise if scanning is successfully stopped
-        } else {
-          promise.reject("E_VIEW_NOT_FOUND", "Ocr_moduleView not found", nil) // Reject the promise if the view is not found
-        }
-      }
-    }
-
   }
   // MRZScannerViewDelegate method
   func mrzScannerView(_ mrzScannerView: QKMRZScannerView, didFind scanResult: QKMRZScanResult) {

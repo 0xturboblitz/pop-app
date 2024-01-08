@@ -3,7 +3,7 @@ import Colors from '../../constants/Colors';
 import { ExternalLink } from '../../components/ExternalLink';
 import { Text, View } from '../../components/Themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { hello } from '../../modules/ocr_module';
+import { hello, Ocr_moduleView } from '../../modules/ocr_module';
 
 console.log('hello', hello())
 
@@ -40,6 +40,9 @@ export default function TabOneScreen() {
             </Text>
           </ExternalLink>
         </View>
+        <Ocr_moduleView
+          name="Ocr_module"
+        />
       </View>
     </View>
   );

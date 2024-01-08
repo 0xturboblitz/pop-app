@@ -7,6 +7,12 @@ import QKMRZScanner
 class Ocr_moduleView: ExpoView {
   var mrzScannerView: QKMRZScannerView!
 
+  required init(appContext: AppContext? = nil) {
+    super.init(appContext: appContext)
+    clipsToBounds = true
+    addSubview(mrzScannerView)
+  }
+
   func startScanning() {
     mrzScannerView = QKMRZScannerView(frame: self.bounds)
     mrzScannerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -17,6 +23,5 @@ class Ocr_moduleView: ExpoView {
   func stopScanning() {
     mrzScannerView.stopScanning()
   }
-
   
 }
