@@ -3,9 +3,6 @@ import Colors from '../../constants/Colors';
 import { ExternalLink } from '../../components/ExternalLink';
 import { Text, View } from '../../components/Themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { hello } from '../../modules/ocr_module';
-
-console.log('hello', hello())
 
 export default function TabOneScreen() {
   return (

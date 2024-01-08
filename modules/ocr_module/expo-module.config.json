@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android", "web"],
-  "ios": {
-    "modules": ["Ocr_moduleModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.ocr_module.Ocr_moduleModule"]
-  }
-}
