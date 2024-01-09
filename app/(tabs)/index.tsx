@@ -1,8 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ExternalLink } from '../../components/ExternalLink';
 import { Text, View } from '../../components/Themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import * as PassportReader from '../../modules/passport-reader';
+
+console.log('hello:', PassportReader.hello())
 
 export default function TabOneScreen() {
   return (
@@ -29,13 +32,17 @@ export default function TabOneScreen() {
         </View>
 
         <View style={styles.helpContainer}>
-          <ExternalLink
+          <Pressable
             style={styles.helpLink}
-            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            onPress={async () => {
+              const a = await PassportReader.scan({})
+              console.log('a:', a)
+            }}
+          >
             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
               Open camera
             </Text>
-          </ExternalLink>
+          </Pressable>
         </View>
       </View>
     </View>

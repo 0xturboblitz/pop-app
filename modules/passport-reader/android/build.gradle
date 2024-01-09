@@ -1,0 +1,105 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
+
+group = 'expo.modules.passportreader'
+version = '0.2.0'
+
+buildscript {
+  def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
+  if (expoModulesCorePlugin.exists()) {
+    apply from: expoModulesCorePlugin
+    applyKotlinExpoModulesCorePlugin()
+  }
+
+  // Simple helper that allows the root project to override versions declared by this library.
+  ext.safeExtGet = { prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  }
+
+  // Ensures backward compatibility
+  ext.getKotlinVersion = {
+    if (ext.has("kotlinVersion")) {
+      ext.kotlinVersion()
+    } else {
+      ext.safeExtGet("kotlinVersion", "1.8.10")
+    }
+  }
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${getKotlinVersion()}")
+  }
+}
+
+afterEvaluate {
+  publishing {
+    publications {
+      release(MavenPublication) {
+        from components.release
+      }
+    }
+    repositories {
+      maven {
+        url = mavenLocal().url
+      }
+    }
+  }
+}
+
+android {
+  compileSdkVersion safeExtGet("compileSdkVersion", 33)
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+  }
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11.majorVersion
+  }
+
+  namespace "expo.modules.passportreader"
+  defaultConfig {
+    minSdkVersion safeExtGet("minSdkVersion", 21)
+    targetSdkVersion safeExtGet("targetSdkVersion", 33)
+    versionCode 1
+    versionName "0.2.0"
+  }
+  lintOptions {
+    abortOnError false
+  }
+  publishing {
+    singleVariant("release") {
+      withSourcesJar()
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation project(':expo-modules-core')
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
+  // implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'com.google.code.gson:gson:2.8.9'
+  implementation 'androidx.multidex:multidex:2.0.1'
+  implementation 'com.google.android.material:material:1.7.0'
+  implementation 'androidx.core:core-ktx:1.9.0'
+  implementation 'com.wdullaer:materialdatetimepicker:3.5.2'
+  implementation 'org.jmrtd:jmrtd:0.7.18'
+  implementation 'net.sf.scuba:scuba-sc-android:0.0.18'
+  implementation 'com.madgag.spongycastle:prov:1.54.0.0'
+  // implementation 'com.gemalto.jp2:jp2-android:1.0.3'
+  implementation 'com.github.mhshams:jnbis:1.1.0'
+  implementation 'commons-io:commons-io:2.8.0'
+  implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+  implementation 'com.android.support:appcompat-v7:25.1.0'
+  implementation 'edu.ucar:jj2000:5.2'
+  implementation 'com.facebook.react:react-native:+'
+}
