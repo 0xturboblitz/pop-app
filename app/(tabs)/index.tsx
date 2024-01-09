@@ -1,8 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, NativeModules } from 'react-native';
 import Colors from '../../constants/Colors';
-import { ExternalLink } from '../../components/ExternalLink';
 import { Text, View } from '../../components/Themed';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { scan } from '../../android/react-native-passport-reader/index.android';
+import * as m from '../../android/react-native-passport-reader/index.android';
+// @ts-ignore
+import PassportReader from 'react-native-passport-reader';
+
+const { RNPassportReader } = NativeModules
+
+// function scan({ documentNumber, dateOfBirth, dateOfExpiry, quality=1 }:
+//   { documentNumber: string, dateOfBirth: string, dateOfExpiry: string, quality?: number }
+// ) {
+//   // assert(typeof documentNumber === 'string', 'expected string "documentNumber"')
+//   // assert(isDate(dateOfBirth), 'expected string "dateOfBirth" in format "yyMMdd"')
+//   // assert(isDate(dateOfExpiry), 'expected string "dateOfExpiry" in format "yyMMdd"')
+//   return RNPassportReader.scan({ documentNumber, dateOfBirth, dateOfExpiry, quality })
+// }
 
 export default function TabOneScreen() {
   return (
@@ -29,13 +43,26 @@ export default function TabOneScreen() {
         </View>
 
         <View style={styles.helpContainer}>
-          <ExternalLink
-            style={styles.helpLink}
-            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+          <Pressable
+            onPress={async () => {
+              console.log('NativeModules', NativeModules);
+              console.log('RNPassportReader', RNPassportReader);
+              console.log('m', m);
+              console.log('PassportReader', PassportReader);
+              const response = await scan({
+                documentNumber: "19HA34828",
+                dateOfBirth: "000719",
+                dateOfExpiry: "291209",
+              });
+              console.log('response', response);
+            }}
+          style={styles.helpLink}
+          
+          >
             <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
               Open camera
             </Text>
-          </ExternalLink>
+          </Pressable>
         </View>
       </View>
     </View>

@@ -16,6 +16,8 @@ import com.facebook.soloader.SoLoader;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
 
+import io.tradle.nfc.RNPassportReaderPackage;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
