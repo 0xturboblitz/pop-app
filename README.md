@@ -1,19 +1,13 @@
-To run:
+To build react-native style with connected device:
 ```
-yarn start
+npx expo run:[android|ios]
 ```
 
-To create a development build, so that you can see native changes reflected:
+To create a expo development build, useful when modifying only TS for some time:
 ```
-eas build --profile development --platform ios
+eas build --profile development --platform [ios|android]
 ```
-or
+Then install it, and run:
 ```
-eas build --profile development --platform android
-```
-Pour le faire en local: https://docs.expo.dev/app-signing/local-credentials/
-
-This also works and runs prebuild, and apparently opens simulator. Apparently not safe to do if native code is changed:
-```
-npx expo run:ios
+npx expo start
 ```
